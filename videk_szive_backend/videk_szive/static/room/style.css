@@ -1,0 +1,111 @@
+:root{
+    --clr-green: #363922;
+    --clr-gold: #C89E5C;
+    --clr-white: #FBF6F0;
+    --clr-wwhite: #fff;
+    --clr-grey-font: color:#222;
+    --clr-grey: #666;
+    --clr-lightgrey: #ececec;
+    --clr-red: #E57373;
+    --clr-lightred: #fff1f1;
+    --clr-orange: #F4B400;
+    --clr-lightorange: #fff8e7;
+    --clr-blue: #64B5F6;
+    --clr-lightblue: #eef7ff;
+    --clr-lightgreen: #81C784;
+    --clr-lightergreen: #effbef;
+    --ff-playfair:"Playfair Display", serif;
+    --ff-great: "Great Vibes", cursive;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: var(--ff-playfair);
+    background:var(--clr-white);
+    color:var(--clr-grey-font);
+}
+
+.rooms-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:22px;
+    
+}
+
+.room{
+    border-radius:22px;
+    padding:25px;
+    border:2px solid transparent;
+    h3{
+        text-align:center;
+        font-size:52px;
+        margin-bottom:15px;
+    }
+    p{
+        text-align:center;
+        margin-bottom:18px;
+        font-weight:bold;
+    }
+    strong{
+        font-size: 0.8rem;
+    }
+}
+
+.occupied{
+    border-color:var(--clr-red);
+    background:var(--clr-lightred);
+}
+
+.cleaning-needed{
+    border-color:var(--clr-orange);
+    background:var(--clr-lightorange);
+}
+
+.cleaning{
+    border-color:var(--clr-blue);
+    background:var(--clr-lightblue);
+}
+
+.done{
+    border-color:var(--clr-lightgreen);
+    background:var(--clr-lightergreen);
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid var(--clr-lightgrey);
+    background:var(--clr-wwhite);
+    margin-top:10px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button.primary{
+    background:var(--clr-green);
+    color:var(--clr-wwhite);
+    border:none;
+}
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.card{
+    width:100%;
+    background:var(--clr-wwhite);
+    border-radius:22px;
+    border:1px solid var(--clr-lightgrey);
+    padding:35px;
+    margin-bottom: 20px;
+    h2{
+        font-size:32px;
+        margin-bottom:25px;
+    }
+}
