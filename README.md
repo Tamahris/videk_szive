@@ -1,1 +1,0 @@
-# Vidék szíve vizsgaremek
