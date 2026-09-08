@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+{% load static %} {% block title %}Üdvözöljük - Vidék Szíve Hotel{% endblock %}
+{% block content %}
+<div style="padding: 20px;">
+    <h1 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px;">Üdvözöljük!</h1>
+    
+    <div class="card" style="padding: 40px; text-align: center; border-radius: 15px; background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+        <img src="{% static 'images/logo_alap.png' %}" alt="Vidék Szíve Hotel" class="welcome-logo">
+        
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #212529; margin-bottom: 15px;">
+            Köszöntjük a Vidék Szíve Hotelben! ✨
+        </h2>
+        <p style="font-size: 1.1rem; color: #6c757d; line-height: 1.6; max-width: 600px; margin: 0 auto 25px auto;">
+            A digitális szobaasszisztens és a recepciós felület eléréséhez kérjük, adja meg a hitelesítési adatait a bal oldali sávban található bejelentkező panelen.
+        </p>
+        <div style="font-size: 0.9rem; color: #adb5bd; font-style: italic; border-top: 1px solid #eee; padding-top: 15px; display: inline-block;">
+            Vendégeink a szobakártyán található adatokkal, dolgozóink a központi fiókjukkal léphetnek be.
+        </div>
+    </div>
+</div>
+{% endblock %}

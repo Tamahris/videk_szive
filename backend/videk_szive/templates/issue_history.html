@@ -1,0 +1,79 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Karbantartások Előzményei - Vidék Szíve Hotel{% endblock %}
+{% block content %}
+
+<div class="card" >
+    <div style="text-align: center;">
+        <h1>🛠️ Karbantartási Hibajelentések Előzményei</h1>
+    </div>
+
+    <div class="card-filter">
+        <form method="GET" action="{% url 'issue_history' %}" style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 20px; margin: 0; width: 100%;">
+        
+        <div class="input-group">
+            <label for="room_number">Szobaszám</label>
+            <input type="number" id="room_number" name="room_number" value="{{ room_filter }}" placeholder="Pl. 101">
+        </div>
+
+        <div class="input-group">
+            <label for="start_date">Mettől</label>
+            <input type="date"  id="start_date" name="start_date" value="{{ start_date_filter }}">
+        </div>
+
+        <div class="input-group">
+            <label for="end_date">Meddig</label>
+            <input type="date" id="end_date" name="end_date" value="{{ end_date_filter }}">
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 15px; height: 52px; margin-bottom: 2px;">
+            <button type="submit" class="primary">🔍 Szűrés</button>
+        </div>
+        {% if room_filter or start_date_filter or end_date_filter %}
+            <button type="button" class="secundary" onclick="window.location.href='{% url 'issue_history' %}'">❌ Szűrők törlése</button>
+        {% endif %}
+    </form>
+    </div>
+
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px;">
+            <thead>
+                <tr style="border-bottom: 1px solid var(--clr-lightgrey);">
+                    <th style="padding:15px;">Szobaszám</th>
+                    <th style="padding:15px; width:400px;">Probléma leírása</th>
+                    <th style="padding:15px;">Státusz</th>
+                    <th style="padding:15px;">Bejelentve</th>
+                    <th style="padding:15px;">Megoldva</th>
+                    <th style="padding:15px;">Karbantartó megjegyzése</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for issue in issues %}
+                    <tr style="border-bottom: 1px solid #ddd; background-color: {% cycle 'transparent' 'rgba(0,0,0,0.02)' %};">
+                        <td style="padding: 12px;">{{ issue.room.room_number }}</td>
+                        <td style="padding: 12px;">{{ issue.description }}</td>
+                        <td style="padding: 12px;">
+                            {% if not issue.is_resolved %}
+                                <span style="background-color: var(--clr-red); color: var(--clr-wwhite); padding: 4px 8px; border-radius: 4px; white-space: nowrap;">⚠️ Aktív hiba</span>
+                            {% else %}
+                                <span style="background-color: var(--clr-green); color: var(--clr-wwhite); padding: 4px 8px; border-radius: 4px; white-space: nowrap;">✅ Elhárítva</span>
+                            {% endif %}
+                        </td>
+                        <td style="padding: 12px; white-space: nowrap;">{{ issue.created_at|date:"Y.m.d H:i" }}</td>
+                        <td style="padding: 12px; white-space: nowrap;">{{ issue.resolved_at|date:"Y.m.d H:i"|default:"-" }}</td>
+                        <td style="padding: 12px; font-style: italic;">
+                            {{ issue.handyman_note|default:"-" }}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" style="padding: 20px; text-align: center;">
+                            ✨Nem található a keresési feltételnek megfelelő hibajelentés.
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

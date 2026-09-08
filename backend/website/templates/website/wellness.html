@@ -1,0 +1,84 @@
+{% extends 'website/index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="title wellness">
+    <div class="content">
+        <h1>Wellness</h1>
+        <img src="{% static 'website/images/newlavender.png' %}" alt="ikon">
+        <p>Merüljön el a teljes nyugalom és feltöltődés világában.<br>
+            Kényeztesse testét és lelkét prémium szolgáltatásainkkal.</p>
+    </div>
+</div>
+
+<div class="icons bggreen">
+    <div class="content">
+        <div class="sauna"><img src="{% static 'website/images/wellness/szauna.png' %}" alt="Szauna"><h4>Szauna</h4>Méregtelenítés és teljes feltöltődés</div>
+        <div class="jakuzzi"><img src="{% static 'website/images/wellness/jacuzzi.png' %}" alt="Jakuzzi"><h4>Jakuzzi</h4>Pezsgő élmény és izomlazítás</div>
+        <div class="massage"><img src="{% static 'website/images/wellness/masszorok.png' %}" alt="Masszázs"><h4>Masszázs</h4>Profi kezelések a teljes regenerációért</div>
+        <div class="pool"><img src="{% static 'website/images/wellness/medence1.png' %}" alt="Medence"><h4>Medence</h4>Beltéri medence, panorámás kilátással</div>
+        <div class="streemroom"><img src="{% static 'website/images/wellness/gozkabin.png' %}" alt="Gőzkabin"><h4>Gőzkabin</h4>Tisztít, hidratál és kényelmesen ellazít</div>
+    </div>
+</div>
+
+<div class="content galery">
+    <h1>Wellness élményeink<img src="{% static 'website/images/newlavender.png' %}" class="decor" alt="dekoráció"></h1>
+    <div class="photo">
+        <img src="{% static 'website/images/wellness/jakuzzi.png' %}" alt="Jakuzzi">
+        <img src="{% static 'website/images/wellness/massage1.png' %}" alt="Masszázs">
+        <img src="{% static 'website/images/wellness/pool1.png' %}" alt="Medence">
+        <img src="{% static 'website/images/wellness/sauna.png' %}" alt="Szauna">
+        <img src="{% static 'website/images/wellness/streamcabin2.png' %}" alt="Gőzkabin">
+        <img src="{% static 'website/images/wellness/reception.png' %}" alt="Recepció">
+    </div>
+</div>
+
+<div class="bggreen">
+    <div class="content ">
+        <h1>Több mint pihenés<img src="{% static 'website/images/newlavender.png' %}" class="decor" alt="Logo"></h1>
+        <div class="media-bg">
+            <img src="{% static 'website/images/wellness/beds.png' %}" alt="Pihenőágyak">
+        </div>
+        <div class="media-text">
+            <h2>Élmény minden érzéknek<img src="{% static 'website/images/newlavender.png' %}" class="decor" alt="Logo"></h2>
+            <p>Wellness részlegünk kialakításakor a természet közelsége és a modern elegancia találkozását tartottunk szem előtt.</p>
+            <p>Meleg fények, természetes anyagok és csendes környezet várja, hogy teljesen kikapcsolódhasson.</p>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="media-text">
+        <h2>Kikapcsolódás az egész családnak<img src="{% static 'website/images/newlavender.png' %}" class="decor" alt="Logo"></h2> 
+        <p>Wellnes részlegünk családbarát kialakításának köszönhetően kisebbek és a felnőttek is megtalálják a számukra ideális pihenési formát</p>
+        <p>Csendes zóna a felnőtteknek.</p>
+        <p>Gyerekbarát idősávok.</p>
+        <p>Családi jakuzzi és sekély medencerész</p>
+    </div>
+    <div class="media-bg">
+        <img src="{% static 'website/images/wellness/family.png' %}" alt="Családi wellness">
+    </div>
+    <div style="clear:both"></div>
+</div>
+
+<div class="icons bggreen">
+    <div class="content">
+        <div class="chill"><img src="{% static 'website/images/wellness/nyugodt.png' %}" alt="Nyugalom"><h4>Nyugalom</h4>Nyugodt, békés természetes környezet</div>
+        <div class="flower"><img src="{% static 'website/images/wellness/flower.png' %}" alt="Innováció"><h4>Innováció</h4>Legújabb modern wellness eszközök</div>
+        <div class="massage"><img src="{% static 'website/images/wellness/masszor.png' %}" alt="Szakemberek"><h4>Szakemberek</h4>Profi masszőrök és kezelések</div>
+        <div class="time"><img src="{% static 'website/images/wellness/naptar.png' %}" alt="Bármikor"><h4>Bármikor</h4>Egész évben elérhető szolgáltatások</div>
+        <div class="family"><img src="{% static 'website/images/wellness/csaladbarat.png' %}" alt="Mindenki számít"><h4>Mindenki számít</h4>Családbarát kialakítás, mindenkinek élmény</div>
+    </div>
+</div>
+
+<div class="reservation">
+    <div class="content">
+        <h2>Foglalja le wellness élményét még ma!</h2>
+        <img src="{% static 'website/images/newlavender.png' %}" class="decor" alt="ikon">
+        <ul>
+            <li><i class="fa-solid fa-seedling"></i>Ajándékozza meg magát egy pihentető kényeztetéssel!</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

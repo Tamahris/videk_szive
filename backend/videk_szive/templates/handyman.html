@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Karbantartó Vezérlőpult - Vidék Szíve Hotel{% endblock %}
+{% block content %}
+
+<div class="card">
+    <div style="padding: 20px; text-align: center;">
+        <h1>🛠️ Karbantartói Feladatok</h1>
+    </div>
+
+    {% if messages %}
+        <div style="margin: 10px 20px;">
+            {% for message in messages %}
+                <div style="padding: 10px; background-color: #d4edda; color: #155724; border-radius: 5px; margin-bottom: 10px; text-align: center;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="rooms-grid">
+        {% for issue in issues %}
+            <div class="room occupied">
+                
+                <div class="handyman-title">
+                    <h3>🔧 {{ issue.room.room_number }}. szoba</h3>
+                    <span>⏱️ {{ issue.created_at|date:"y.m.d. H:i" }}</span>
+                </div>
+                
+                <hr>
+               
+               <p><strong>Hiba leírása:</strong><br> {{ issue.description }}</p>
+
+                <form method="POST" action="{% url 'update_issue_note' issue.id %}" style="margin-bottom: 15px;">
+                    {% csrf_token %}
+                    <label style="font-size: 0.85rem; font-weight: bold; color: #555;">Megjegyzés:</label>
+                    <textarea name="handyman_note" rows="2" style="width: 100%; border: 1px solid #ccc; border-radius: 5px; padding: 8px; font-family: inherit; margin-top: 5px; resize: none;" placeholder="Pl: Alkatrészre vár, folyamatban... ">{% if issue.handyman_note %}{{ issue.handyman_note }}{% endif %}</textarea>
+                    <button type="submit" style="width: 100%; background-color: #17a2b8; color: white; padding: 6px; border: none; border-radius: 5px; font-size: 0.85rem; cursor: pointer; margin-top: 5px;">
+                        💾 Státuszüzenet mentése
+                    </button>
+                </form>
+
+                <hr>
+
+                <form method="POST" action="{% url 'resolve_issue' issue.id %}">
+                    {% csrf_token %}
+                    <button class="primary" type="submit">✅ Hiba elhárítva / Kész</button>
+                </form>
+            </div>
+        {% empty %}
+            <div style="text-align: center;">
+                <p>✨ Jelenleg nincs bejelentett műszaki hiba a hotelben</p>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}

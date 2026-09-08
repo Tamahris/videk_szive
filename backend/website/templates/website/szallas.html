@@ -1,0 +1,104 @@
+{% extends 'website/index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="title szallas">
+    <div class="content">
+        <h1>Szobáink</h1>
+        <img src="{% static 'website/images/newlavender.png' %}" alt="ikon">
+        <p>Találja meg igényeinek leginkább megfelelő szobát</p>   
+    </div>
+</div>
+
+<div class="rooms">
+    <div class="content">
+        <div class="room-grid">
+            <div class="room-card">
+                <div class="pic"><img src="{% static 'website/images/szobaink/kompakt.png' %}" alt="Kompakt szoba"></div>
+                <div class="info">
+                    <h3>KOMPAKT SZOBA</h3>
+                    <p>Kompakt kényelem és modern felszereltség a teljes nyugalomhoz.</p>
+                </div>
+                <div class="bottom">
+                    <div class="features">
+                        <p><i class="fas fa-user-friends"></i> 1 fő részére</p>
+                        <h4><a href="#">RÉSZLETEK</a></h4>
+                    </div>
+                    <div class="price-tag"><strong>19 900 Ft/éj</strong></div>
+                </div>
+            </div>
+            <div class="room-card">
+                <div class="pic"><img src="{% static 'website/images/szobaink/standard.png' %}" alt="Standard szoba 1 franciaággyal"></div>
+                <div class="info">
+                    <h3>STANDARD SZOBA(1 francia ággyal)</h3>
+                    <p>Kényelmes, modern szoba a pihentető kikapcsolódáshoz<br> barátoknak vagy pároknak</p>
+                </div>
+                <div class="bottom">
+                    <div class="features">
+                        <p><i class="fas fa-user-friends"></i> 2 fő részére</p>
+                        <h4><a href="#">RÉSZLETEK</a></h4>
+                    </div>
+                    <div class="price-tag"><strong>39 900 Ft/éj</strong></div>
+                </div>
+            </div>
+            <div class="room-card">
+                <div class="pic"><img src="{% static 'website/images/szobaink/2agyas.png' %}" alt="Standard szoba 2 külön ággyal"></div>
+                <div class="info">
+                    <h3>STANDARD SZOBA(2 kompakt ággyal)</h3>
+                    <p>Kényelmes, modern szoba a pihentető kikapcsolódáshoz még ha<br> szereted is a privátszférát</p>
+                </div>
+                <div class="bottom">
+                    <div class="features">
+                        <p><i class="fas fa-user-friends"></i> 2 fő részére</p>
+                        <h4><a href="#">RÉSZLETEK</a></h4>
+                    </div>
+                    <div class="price-tag"><strong>39 900 Ft/éj</strong></div>
+                </div>
+            </div>
+            <div class="room-card">
+                <div class="pic"><img src="{% static 'website/images/szobaink/csaladi.png' %}" alt="Családi szoba"></div>
+                <div class="info">
+                    <h3>CSALÁDI SZOBA</h3>
+                    <p>Kényelmes, modern szoba a pihentető kikapcsolódáshoz</p>
+                </div>
+                <div class="bottom">
+                    <div class="features">
+                        <p><i class="fas fa-user-friends"></i> 3-5 fő részére</p>
+                        <h4><a href="#">RÉSZLETEK</a></h4>
+                    </div>
+                    <div class="price-tag"><strong>69 900 Ft/éj</strong></div>
+                </div>
+            </div>   
+            <div class="room-card">
+                <div class="pic"><img src="{% static 'website/images/szobaink/superior.png' %}" alt="Superior szoba"></div>
+                <div class="info">
+                    <h3>SUPERIOR SZOBA</h3>
+                    <p>Tágasabb szoba, erkéllyel és gyönyörű kilátással a természetre</p>
+                </div>
+                <div class="bottom">
+                    <div class="features">
+                        <p><i class="fas fa-user-friends"></i> 2+1 fő részére</p>
+                        <h4><a href="#">RÉSZLETEK</a></h4>
+                    </div>
+                    <div class="price-tag"><strong>49 900 Ft/éj</strong></div>
+                </div>
+            </div>
+            <div class="room-card">
+                <div class="pic"><img src="{% static 'website/images/szobaink/suite.png' %}" alt="Suite szoba"></div>
+                <div class="info">
+                    <h3>SUITE SZOBA</h3>
+                    <p>Külön hálószoba és nappali a maximális kényelemért.</p>
+                </div>
+                <div class="bottom">
+                    <div class="features">
+                        <p><i class="fas fa-user-friends"></i> 2-3 fő részére</p>
+                        <h4><a href="#">RÉSZLETEK</a></h4>
+                    </div>
+                    <div class="price-tag"><strong>59 900 Ft/éj</strong></div>
+                </div>
+            </div> 
+
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,191 @@
+{% extends 'index.html' %} 
+{% block content %}
+<div class="card">
+    {% if success %}
+        <div class="form-step" id="step-4" {% if success %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+            <div class="success-screen">
+                <div class="success-icon">✓</div>
+                <h2>Sikeres regisztráció!</h2>
+                <p>A vendég adatai és a foglalás sikeresen elmentésre került az adatbázisba.</p>
+                <button type="button" class="secundary" onclick="window.location.href='{% url 'reception' %}'">Vissza</button>
+            </div>
+        </div>
+
+    {% else %}
+    <div class="steps" {% if success %}style="display: none !important;"{% endif %}>
+        <button type="button" id="step-badge-1" class="step-badge active-badge" onclick="goToStep(1)">1. Vendég adatai</button>
+        <button type="button" id="step-badge-2" class="step-badge" onclick="goToStep(2)">2. Szoba kiválasztása</button>
+        <button type="button" id="step-badge-3" class="step-badge" onclick="goToStep(3)">3. Véglegesítés</button>
+    </div>
+    
+    <form action="" method="POST" id="checkin-form">
+        {% csrf_token %}
+
+        <div class="form-step" id="step-1">
+            <h2>Vendég adatai</h2>
+            
+            <div class="guest-form">
+                <div class="input-group">
+                    <label>Teljes név *</label>
+                    <input type="text" name="guest_name" required placeholder="Pl. Kovács Anna" value="{% if res %}{{ res.guest.guest_name }}{% endif %}">
+                </div>
+
+                <div class="row">
+                    <div class="input-group">
+                        <label>Születési dátum *</label>
+                         <input type="date" name="birth_date" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Telefonszám</label>
+                        <input type="text" name="phone_number" placeholder="+36 30 123 4567" value="{% if res %}{{ res.guest.phone_number }}{% endif %}">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-group">
+                        <label>Személyi igazolvány szám *</label>
+                        <input type="text" name="personal_id" required placeholder="123456AB">
+                    </div>
+                    <div class="input-group">
+                        <label>E-mail cím</label>
+                        <input type="email" name="email" placeholder="pelda@email.com" value="{% if res %}{{ res.guest.email }}{% endif %}">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Lakcím</label>
+                    <input type="text" name="address" placeholder="1111 Budapest, Példa utca 12.">
+                </div>
+
+                <div class="row">
+                    <div class="input-group">
+                        <label>Érkezés dátuma *</label>
+                        <input type="date" name="arrive_date" id="id_arrive_date" required value="{% if res %}{{ res.arrive_date|date:'Y-m-d' }}{% endif %}">
+                    </div>
+                    <div class="input-group">
+                        <label>Távozás dátuma *</label>
+                        <input type="date" name="leave_date" id="id_leave_date" required value="{% if res %}{{ res.leave_date|date:'Y-m-d' }}{% endif %}">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-group">
+                        <label>Felnőttek száma</label>
+                        <select name="adult_number">
+                            <option value="1" {% if res and res.adult_number == 1 %}selected{% endif %}>1 fő</option>
+                            <option value="2" {% if res and res.adult_number == 2 %}selected{% elif not res %}selected{% endif %}>2 fő</option>
+                            <option value="3" {% if res and res.adult_number == 3 %}selected{% endif %}>3 fő</option>
+                            <option value="4" {% if res and res.adult_number == 4 %}selected{% endif %}>4 fő</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Gyermekek száma</label>
+                        <select name="kid_number">
+                            <option value="0" {% if res and res.kid_number == 0 %}selected{% elif not res %}selected{% endif %}>0 fő</option>
+                            <option value="1" {% if res and res.kid_number == 1 %}selected{% endif %}>1 fő</option>
+                            <option value="2" {% if res and res.kid_number == 2 %}selected{% endif %}>2 fő</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Megjegyzés</label>
+                    <textarea name="comment" rows="3" placeholder="Speciális kérés, megjegyzés...">{% if res %}{{ res.comment }}{% endif %}</textarea>
+                </div>
+            </div>
+
+            <div class="room-actions">
+                <button type="button" class="next-btn" onclick="nextStep(2)">Tovább a szobákhoz</button>
+            </div>
+        </div>
+
+        <div class="form-step" id="step-2" style="display: none;">
+            <h2>Szoba kiválasztása</h2>
+            
+            <div class="rooms-grid">
+                {% for room in available_rooms %}
+                    <label class="select-room">
+                        <input type="radio" name="selected_room" value="{{ room.room_number }}" required 
+                               {% if res and res.room and res.room.room_number == room.room_number %}checked{% endif %}
+                               onchange="updateSummaryDetails('{{ room.room_number }}', '{{ room.room_type }}', '{{ room.room_persons }}', '{{ room.price_per_night }}')">
+                        
+                        <div class="room-top">
+                            <h3>{{ room.room_number }}</h3>
+                            <div class="room-badge">Szabad</div>
+                        </div>
+                        
+                        <p>{{ room.room_type }}</p>
+                        
+                        <div class="room-info">
+                            <span>{{ room.room_persons }} fő</span>
+                            <span>{{ room.room_size }}m²</span>
+                            <span>{{ room.price_per_night }} Ft/éj</span>
+                        </div>
+                    </label>
+                {% empty %}
+                    <p>Nincs választható szabad szoba.</p>
+                {% endfor %}
+            </div>
+            
+            <div class="room-actions">
+                <button type="button" class="back-btn" onclick="prevStep(1)">Vissza</button>
+                <button type="button" class="next-btn" onclick="nextStep(3);">Tovább az összegzéshez</button>
+            </div>
+        </div>
+
+        <div class="form-step" id="step-3" style="display: none;">
+            <h2>Foglalás véglegesítése</h2>
+                
+            <div class="summary-section">
+                <div class="summary-header">
+                    <h3>Vendég adatai</h3>
+                </div>
+                <div class="summary-grid">
+                    <div class="summary-row"><strong>Név:</strong> <span id="sum-name">-</span></div>
+                    <div class="summary-row"><strong>Személyi igazolvány:</strong> <span id="sum-id">-</span></div>
+                    <div class="summary-row"><strong>Telefonszám:</strong> <span id="sum-phone">-</span></div>
+                    <div class="summary-row"><strong>Tartózkodás:</strong> <span id="sum-dates">-</span></div>
+                </div>
+            </div>
+
+            <div class="summary-section">
+                <div class="summary-header">
+                    <h3>Kiválasztott szoba</h3>
+                </div>
+                <div class="summary-grid">
+                    <div class="summary-row"><strong>Szoba száma:</strong> <span id="sum-room-num">-</span></div>
+                    <div class="summary-row"><strong>Szoba típusa:</strong> <span id="sum-room-type">-</span></div>
+                    <div class="summary-row"><strong>Férőhely:</strong> <span id="sum-room-persons">-</span></div>
+                    <div class="summary-row"><strong>Elhelyezkedés:</strong> 1. emelet</div>
+                </div>
+            </div>
+
+            <div class="summary-section">
+                <div class="summary-header">
+                    <h3>Fizetési információ</h3>
+                </div>
+                <div class="summary-grid">
+                    <div class="summary-row">
+                        <label><span>Fizetés módja</span></label>
+                        <strong>Helyszíni fizetés</strong>
+                    </div>
+                    <div class="summary-row">
+                        <label><span>Fizetés állapota</span></label>
+                        <strong>Fizetésre vár</strong>
+                    </div>
+                    <div class="summary-row">
+                        <label><span>Összesen</span></label>
+                        <strong><span id="sum-total-price">0</span> Ft</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="room-actions">
+                <button type="button" class="back-btn" onclick="prevStep(2)">Vissza</button>
+                <button type="submit" class="finish-btn">Check-in véglegesítése</button>
+            </div>
+        </div>
+</form>
+{% endif %}
+</div>
+{% endblock %}

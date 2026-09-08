@@ -1,0 +1,78 @@
+{% extends 'website/index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="title etterem">
+    <div class="content">
+        <h1>Gasztronómiai élmények</h1>
+        <img src="{% static 'website/images/newlavender.png' %}" alt="ikon">
+        <h2>a magyar vidék ízeivel</h2>
+        <p>Helyi alapanyagokból készült ételek,<br>
+            tradicionális receptek és modern ízvilág</p>
+    </div>
+</div>
+
+<div class="icons bggreen">
+    <div class="content">
+        <div class="sauna"><img src="{% static 'website/images/etterem/leaf.png' %}" alt="Helyi alapanyagok"><h4>Helyi alapanyagok</h4>Friss hozzávalók hazai termelőktől</div>
+        <div class="jakuzzi"><img src="{% static 'website/images/etterem/reggeli.png' %}" alt="Friss reggeli"><h4>Friss reggeli</h4>Energiadús étel, gőzölgő kávé</div>
+        <div class="massage"><img src="{% static 'website/images/etterem/borok.png' %}" alt="Prémium borok"><h4>Prémium borok</h4>Hazai és nemzetközi borkülönlegességek</div>
+        <div class="pool"><img src="{% static 'website/images/etterem/food.png' %}" alt="Hagyományos ízek"><h4>Hagyományos ízek</h4>Magyaros fogások, modern konyha </div>
+        <div class="streemroom"><img src="{% static 'website/images/etterem/sutemeny.png' %}" alt="Házi desszertek"><h4>Házi desszertek</h4>Édes kényeztetés régi receptek alapján</div>
+    </div>
+</div>
+
+<div class="content galery">
+    <h1>Kiemelt fogásaink<img src="{% static 'website/images/newlavender.png' %}" class="decor" alt="dekoráció"></h1>
+    <div class="photo">
+        <img src="{% static 'website/images/etterem/reggeli (2).png' %}" alt="Reggeli">
+        <img src="{% static 'website/images/etterem/gulyas leves.png' %}" alt="Gulyásleves">
+        <img src="{% static 'website/images/etterem/steak.png' %}" alt="Steak">
+        <img src="{% static 'website/images/etterem/saláta.png' %}" alt="Saláta">
+        <img src="{% static 'website/images/etterem/desszert.png' %}" alt="Desszert">
+        <img src="{% static 'website/images/etterem/bor.png' %}" alt="Bor">
+    </div>
+</div>
+
+<div class="bggreen">
+    <div class="content ">
+        <h1>Mit kínálunk?<img src="{% static 'website/images/newlavender.png' %}" class="decor" alt="Logo"></h1>
+        <div class="media-bg">
+            <img src="{% static 'website/images/etterem/asztalok.png' %}" alt="Étterem belső">
+        </div>
+        <div class="media-text">
+            <h2>Vidék ízei modern köntösben<img src="{% static 'website/images/newlavender.png' %}" class="decor" alt="Logo"></h2>
+            <p>Éttermünkben a tradicionális magyar konyha gazdag öröksége és a modern gasztronómia kifinomult technológiái találkoznak. Hiszünk abban, hogy a hagyományos receptek megőrzése mellett helye van az innovációnak és a kreatív tálalásnak is.</p>
+            <p>Séfjeink kizárólag gondosan válogatott, friss, helyi termelőktől származó alapanyagokkal dolgoznak, biztosítva ezzel az ételek hamisítatlan, tiszta ízét. A környékbeli erdők, mezők és kertek kincsei ihlette szezonális menükínálatunk garantálja, hogy minden egyes nálunk eltöltött pillanat és minden fogás egy különleges, felejthetetlen kulináris élményt nyújtson vendégeink számára. Kóstoljon bele a vidék legjavába, modern eleganciával tálalva!</p>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="media-text">
+        <h2>Családbarát étterem<img src="{% static 'website/images/newlavender.png' %}" class="decor" alt="Logo"></h2> 
+        <p>Nálunk a közös étkezés valódi családi élmény. Különös figyelmet fordítunk arra, hogy a legkisebbek és a felnőttek is egyaránt otthonosan és felszabadultan érezzék magukat. Kifejezetten a gyerekek ízlésére szabott, egészséges és játékos gyermekmenüvel, valamint kényelmes, tágas családi asztalokkal várjuk Önöket.</p>
+        <p>Gondoskodunk a szülők nyugalmáról is: éttermünkben etetőszékek, gyerekbarát eszközök és egy barátságos, biztonságos környezet garantálja a zökkenőmentes idillt. Amíg a felnőttek a kulináris különlegességeket élvezik, a kicsik is megtalálják a kedvenc falataikat. Szeretettel várjuk a kisebb és nagyobb családokat egyaránt egy közös, örömteli ebédre vagy vacsorára!</p>
+    </div>
+    <div class="media-bg">
+        <img src="{% static 'website/images/etterem/csalad.png' %}" alt="Családi étkezés">
+    </div>
+    <div style="clear:both"></div>
+</div>
+
+<div class="reservation restaurant">
+    <div class="content">
+        <h2>Foglaljon asztalt még ma!</h2>
+        <img src="{% static 'website/images/newlavender.png' %}" class="decor" alt="ikon">
+        <h3>Élvezze a Vidék Szíve Hotel különleges gasztronómiai világát.</h3>
+        <ul>
+            <li>Nyitvatartás</li>
+            <li><i class="fa-regular fa-sun"></i> 07:00-10:00</li>
+            <li><i class="fa-solid fa-utensils"></i> 12:00-15:00</li>
+            <li><i class="fa-regular fa-moon"></i> 18:00-22:00</li>
+            <li><i class="fa-solid fa-martini-glass-empty"></i> 10:00-23:00</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

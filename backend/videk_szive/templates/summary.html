@@ -1,0 +1,61 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Összesítő - Vidék Szíve Hotel{% endblock %}
+{% block content %}
+
+<div class="notation">
+    <div class="status-item">
+        <div class="dot booked"></div>
+        Takarítást nem kér
+    </div>
+    <div class="status-item">
+        <div class="dot pending"></div>
+        Takarítás szükséges
+    </div>
+    <div class="status-item">
+        <div class="dot in-progress"></div>
+        Takarítás alatt
+    </div>
+    <div class="status-item">
+        <div class="dot ready"></div>
+        Takarítva
+    </div>
+</div>
+
+<div class="card">
+    <div style="padding: 20px; text-align: center;">
+        <h1>🧹 Takarítási összesítő</h1>
+    </div>
+    <div class="rooms-grid">
+        <div class="room cleaning">
+            <h3>🧹</h3>
+            <p>Takarítás szükséges</p>
+            <h3>{{ cleaning_count }}</h3>
+        </div>
+
+        <div class="room cleaning">
+            <h3>🛏️</h3>
+            <p>Extra ágynemű kérése</p>
+            <h3>{{ sheets_count }}</h3>
+        </div>
+
+        <div class="room cleaning">
+            <h3>🧖</h3>
+            <p>Extra törölköző</p>
+            <h3>{{ towel_count }}</h3>
+        </div>
+
+        <div class="room cleaning">
+            <h3>🧴</h3>
+            <p>Extra tusfürdő</p>
+            <h3>{{ shower_count }}</h3>
+        </div>
+
+        <div class="room cleaning">
+            <h3>🚮</h3>
+            <p>Szemét ürítése</p>
+            <h3>{{ bin_count }}</h3>
+        </div>
+    </div>
+</div>
+{% endblock %}

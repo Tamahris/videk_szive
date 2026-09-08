@@ -1,0 +1,65 @@
+{% extends 'index.html' %} 
+{% block content %}
+<div class="card" style="position: relative;">
+
+    {% if success %}
+        <div class="success-screen">
+            <div class="success-icon" style="background-color: var(--clr-red)">✓</div>
+            <h2>Sikeres Check-out!</h2>
+            <p>A szoba sikeresen felszabadítva és átállítva takarítandóra.</p>
+            <button type="button" class="secundary" onclick="window.location.href='{% url 'reception' %}'">Vissza</button>
+        </div>
+    {% else %}
+        
+        <form action="" method="POST" id="checkout-form">
+            {% csrf_token %}
+            
+            <div class="form-step" id="checkout-step-1">
+                <h2>Check-out - Szoba keresése</h2>
+                <div class="input-group" style="margin-bottom: 15px;">
+                    <label>Válassza ki a távozó szobát *</label>
+                    <select name="room_number" id="checkout_room_select" required style="width: 100%; padding: 10px; border-radius: 6px;">
+                        <option value="" selected disabled>-- Válasszon a jelenleg foglalt szobák közül --</option>
+                        {% for room in booked_rooms %}
+                            <option value="{{ room.room_number }}" 
+                                    data-guest="{{ room.current_guest.guest_name }}"
+                                    data-type="{{ room.room_type }}"
+                                    data-price="{{ room.price_per_night }}"
+                                    data-issues="{% if room.issues %}Igen ({{ room.issue_description }}){% else %}Nincs{% endif %}"
+                                    data-wakeup="{% if room.wake_up %}Igen ({{ room.wake_up_time }}){% else %}Nem{% endif %}">
+                                {{ room.room_number }}. szoba - {{ room.current_guest.guest_name }}
+                            </option>
+                        {% empty %}
+                            <option value="" disabled>Jelenleg nincs kiadott szoba a szállodában.</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="room-actions">
+                    <button type="button" class="next-btn" onclick="processCheckoutSearch()" style="width: 100%;">Szoba adatainak lekérése</button>
+                </div>
+            </div>
+
+            <div class="form-step" id="checkout-step-2" style="display: none;">
+                <h2>Check-out véglegesítése</h2>
+                
+                <div class="summary-section">
+                    <div class="summary-row"><span>Szobaszám:</span> <strong><span id="out-sum-room">-</span></strong></div>
+                    <div class="summary-row"><span>Vendég neve:</span> <strong><span id="out-sum-name">-</span></strong></div>
+                    <div class="summary-row"><span>Szoba típusa:</span> <strong><span id="out-sum-type">-</span></strong></div>
+                </div>
+
+                <div class="payment-box">
+                    <div class="summary-row"><span>Alapár / éjszaka:</span> <strong><span id="out-sum-price">-</span> Ft</strong></div>
+                    <div class="summary-row"><span>Bejelentett műszaki hiba:</span> <strong><span id="out-sum-issues">-</span></strong></div>
+                    <div class="summary-row"><span>Ébresztési kérés volt:</span> <strong><span id="out-sum-wakeup">-</span></strong></div>
+                </div>
+
+                <div class="room-actions" style="margin-top: 20px; display: flex; gap: 10px;">
+                    <button type="button" class="back-btn" onclick="backToCheckoutSearch()" style="flex: 1;">Vissza a kereséshez</button>
+                    <button type="submit" class="finish-btn">Kijelentkeztetés végrehajtása</button>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

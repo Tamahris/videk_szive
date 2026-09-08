@@ -1,0 +1,80 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Általános Információk - Vidék Szíve Hotel{% endblock %}
+{% block content %}
+
+<div class="notation">
+    <div class="status-item">
+        <div class="dot booked"></div>
+        Takarítást nem kér
+    </div>
+    <div class="status-item">
+        <div class="dot pending"></div>
+        Takarítás szükséges
+    </div>
+    <div class="status-item">
+        <div class="dot in-progress"></div>
+        Takarítás alatt
+    </div>
+    <div class="status-item">
+        <div class="dot ready"></div>
+        Takarítva
+    </div>
+</div>
+
+<div class="card">
+    <div style="padding: 20px; text-align: center;">
+        <h1>🏨 Szobák Foglaltsági és Állapot Nyilvántartása</h1>
+    </div>
+
+    <div class="rooms-grid">
+        {% for room in rooms %}
+            <div class="room 
+                {% if room.status_booked and not room.status_need_cleaning and not room.status_under_cleaning %}occupied
+                {% elif room.status_need_cleaning %}cleaning-needed
+                {% elif room.status_under_cleaning %}cleaning
+                {% elif room.status_cleaned or room.status_free %}done
+                {% endif %}">
+
+                <h3>{{ room.room_number }}</h3>
+                <p>{{ room.room_type }}</p>
+
+                <hr>
+
+                <div style="margin-bottom: 15px;">
+                    {% if room.status_booked %}
+                        <p style="margin-bottom: 5px;">{{ room.current_guest.guest_name }}</p>
+                        <p> 
+                            {% if room.active_reservation %}
+                                {{ room.active_reservation.arrive_date|date:"Y.m.d" }} - {{ room.active_reservation.leave_date|date:"Y.m.d" }}
+                            {% else %}
+                                <em>Nincs rögzített dátum</em>
+                            {% endif %}
+                        </p>
+                    {% else %}
+                        <div style="text-align: center;">
+                            <strong>Üres szoba</strong>
+                        </div>
+                    {% endif %}
+                </div>
+                <hr>
+                <div>
+                    {% if room.cleaning or room.extra_sheets or room.extra_towel or room.extra_showers or room.bin_clean or room.wake_up or room.issues %}
+                        <div style="text-align: center; font-size: 2rem">
+                            {% if room.extra_sheets %}🛏️{% endif %}
+                            {% if room.extra_towel %}🧖{% endif %}
+                            {% if room.extra_showers %}🧴{% endif %}
+                            {% if room.bin_clean %}🚮{% endif %}
+                            {% if room.wake_up %}🔔{% endif %}
+                        </div>
+                    {% else %}
+                        <div style="text-align: center;">
+                            ✨Nincs extra kérés
+                        </div>
+                    {% endif %}
+                </div>
+            </div> 
+            {% endfor %}
+    </div> 
+</div> 
+{% endblock %}

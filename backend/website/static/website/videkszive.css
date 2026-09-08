@@ -1,0 +1,797 @@
+:root{
+    --clr-green: #363922;
+    --clr-gold: #C89E5C;
+    --clr-gold-dark: #b58d4c;
+    --clr-white: #FBF6F0;
+    --clr-wwhite: #fff;
+    --clr-grey-font: #222;
+    --clr-grey: #666;
+    --clr-lightgrey: #ececec;
+    --clr-red: #E57373;
+    --clr-lightred: #fff1f1;
+    --clr-orange: #F4B400;
+    --clr-lightorange: #fff8e7;
+    --clr-blue: #64B5F6;
+    --clr-lightblue: #eef7ff;
+    --clr-lightgreen: #81C784;
+    --clr-lightergreen: #effbef;
+    --ff-playfair:"Playfair Display", serif;
+    --ff-great: "Great Vibes", cursive;
+}
+*{ 
+    padding: 0; 
+    margin: 0; 
+    box-sizing: border-box; /* Ez alapvető a reszponzivitáshoz */
+}
+
+body{
+    background: #e6d9b8; 
+    color: var(--clr-green);
+    font-family: var(--ff-playfair);
+    overflow-x: hidden; /* Megakadályozza a vízszintes görgetést */
+}
+
+.content{
+    margin: 0 auto;
+    width: 90%;          /* Mobilon nem ér ki a szélére */
+    max-width: 1000px;   /* De 1000px-nél megáll */
+    padding: 25px 0 25px 0;
+}
+
+.bggreen{
+    background-color: var(--clr-green);
+    color: var(--clr-white);
+}
+
+.bggreen-title{
+    color: var(--clr-white);
+}
+
+h1{
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+nav{
+    background: var(--clr-green);
+    color: var(--clr-white);
+    img { 
+        height: 150px;
+    }
+    a { 
+        text-decoration: none; 
+        color: var(--clr-white); 
+        font-size: 1rem; 
+        position: relative;
+    }
+    a:hover{
+        color: var(--clr-gold);
+    }
+    a:hover::after{
+        content: "";
+        position: absolute;
+        left: -20px;
+        bottom: -20px;
+        width: 150%;
+        height: 25px;
+        background-image: url("Images/newlavender.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        transform: rotate(-10deg);
+        transition: transform 0.3s ease;
+    }
+}
+nav .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu { 
+    display: flex; 
+    list-style: none; 
+    gap: 50px; 
+    
+}
+
+.main{
+    background-image: url("Images/fooldal/hotel.png");
+    background-size: cover;
+    background-position: center;
+    min-height: 700px;
+    padding: 35px 0;
+    text-align: left;
+    h2{ 
+        font-size: 2.5rem; 
+        line-height: 1.1;
+    }
+    h3{ 
+        font-family: var(--ff-great); 
+        font-size: 2.2rem;
+        color: var(--clr-gold);
+        margin-top: 10px; 
+    }
+    p { 
+        margin-top: 20px; 
+        max-width: 400px; 
+    }
+}
+.kapcsolat{
+    background-image: url("Images/kapcsolat/kapcsolat.png");
+    h2{
+        color: var(--clr-white);
+    }
+    p{
+        color: var(--clr-white);
+    }
+}
+
+.decor { 
+    width: 80px; 
+    transform: rotate(-10deg); 
+    margin-bottom: 10px; 
+}
+
+.media-bg{
+    width:60%;
+    float: left;
+    img{
+        width: 100%;
+    }
+}
+.media-text{
+    width: 38%;
+    float: left;
+    padding: 1%;
+    text-align: justify;
+    h2{
+        font-family: var(--ff-great);
+        font-size: 2.5rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--clr-gold);
+    }
+    p{
+        margin-bottom: 5px;
+    }
+}
+
+.icons { 
+    color: var(--clr-gold);
+    > div { 
+        font-size: 0.75rem; 
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap; 
+    }
+    img { 
+        width: 50px; 
+        height: auto;
+        margin-right: 15px;
+        margin-bottom: 10px;  
+        float: left;
+    }
+}
+
+
+.galery{
+    flex-direction: column;  
+    display: flex;
+    align-items: center;   
+}
+.photo{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    img{
+    height: 200px;
+    width: 200px;
+    transform: none;
+    border-radius: 10px;
+    }
+    img:hover{
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+        z-index: 10;
+    }
+} 
+/* ROOMS SECTION */
+.rooms{
+    padding-top: 20px;
+}
+
+.room-grid { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 20px; 
+    justify-content: center;
+    padding-bottom: 20px;  
+}
+.room-card { 
+    background: var(--clr-white); 
+    color: var(--clr-green);
+    width: calc(50% - 10px); /* 2 kártya egy sorban tableten */
+    min-width: 280px; 
+    border-radius: 10px; 
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.room-card img { width: 100%; height: 180px; object-fit: cover; }
+.room-card:hover{
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    z-index: 10;
+}
+.features {
+    text-decoration: none;
+    a{
+        text-decoration: none;
+        color: var(--clr-green);
+    }
+    a:hover{
+        color: var(--clr-gold);
+    }
+    h4{
+        margin-top: 10px;
+    }
+}
+.info { padding: 20px; flex-grow: 1; }
+.info h3 { margin-bottom: 10px; font-size: 1rem; }
+.info p { font-size: 0.8rem; line-height: 1.5; }
+.bottom { 
+    display: flex; 
+    justify-content: space-between; 
+    padding: 15px 20px; 
+    border-top: 1px solid #eee; 
+    align-items: center; 
+}
+.price-tag strong { 
+    font-size: 2rem; 
+    color: var(--clr-green); 
+}
+.view-all-container {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-view-all {
+    padding: 10px 25px;
+    border: 1px solid var(--clr-gold); /* Finom fehér keret */
+    color: var(--clr-gold);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-view-all:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--clr-gold);
+}
+
+/* RESERVATION */
+.reservation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    background-color: rgba(0,0,0,0.5);
+    background-image: url(Images/fooldal/táj.png);
+    background-blend-mode:soft-light;
+
+    background-size: cover;       
+    background-position:50% 20%;  
+    background-repeat: no-repeat;
+
+    min-height: 300px;
+    width: 100%;    
+    color: var(--clr-white);
+    ul {
+        display: flex;
+        padding: 0;
+        margin: 15px auto 0 auto;
+        list-style: none;
+        gap: 12px;   
+        align-items: flex-start;          
+        width: fit-content;
+        flex-direction: column;
+        text-align: center;
+    }
+    li { 
+        display: flex; 
+        align-items: center; 
+        gap: 15px; 
+        font-size: 1rem; 
+    }
+    i { 
+        color: var(--clr-gold); 
+        width: 20px; 
+        text-align: center; 
+    }
+}
+.restaurant{
+    background-image: url(Images/etterem/foglalos_hatter.png);
+}
+
+.title{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    background-size: cover;       
+    background-position:50% 20%;  
+    background-repeat: no-repeat;
+
+    min-height: 300px;
+    width: 100%;    
+    color: var(--clr-green);
+    img{
+        width: 150px; 
+        transform: rotate(-10deg); 
+        margin-bottom: 10px;
+    }
+    h1{
+        font-family: var(--ff-great);
+        font-size: 4rem;
+    }
+}
+
+.szallas{
+    background-image: url(Images/szobaink/foglalos_hatter.png);
+}
+
+.wellness{
+    background-image: url(Images/wellness/wellness_hatter.png);
+}
+
+.etterem{
+    background-image: url(Images/etterem/etterem_hatter.png);
+}
+
+.galerys{
+    background-image: url(Images/galery/galeria.png);
+}
+.reserv{
+    background-image: url(images/reservation/foglalas_1.png);
+}
+
+.photos {
+    column-count: 3;           /* hány oszlop */
+    column-gap: 10px;          /* rés az oszlopok között */
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.photos img {
+    width: 100%;               /* fontos! ne fix 400px */
+    margin-bottom: 10px;       /* tér a képek között */
+    border-radius: 10px;
+    display: block;
+
+    break-inside: avoid;       /* EZ KELL masonry-hez */
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+
+    transition: all 0.3s ease;
+}
+
+.photos img:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    z-index: 10;
+}
+
+label {
+display: block;
+margin-bottom: 6px;
+font-weight: 600;
+color: #3f5a3f;
+}
+
+/* Input mezők */
+input,
+textarea {
+width: 100%;
+padding: 10px 12px;
+border: 1px solid #cfd9c8;
+border-radius: 8px;
+background: #fbfcf8;
+font-size: 14px;
+transition: 0.2s ease;
+}
+
+/* Fókusz effekt */
+input:focus,
+textarea:focus {
+outline: none;
+border-color: #6b8f6b;
+box-shadow: 0 0 0 3px rgba(107, 143, 107, 0.2);
+}
+
+/* Textarea */
+textarea {
+min-height: 120px;
+resize: vertical;
+}
+
+/* Gomb */
+button {
+margin-top: 15px;
+width: 100%;
+padding: 12px;
+background: var(--clr-gold);
+color: white;
+border: none;
+border-radius: 8px;
+font-size: 15px;
+font-weight: 600;
+cursor: pointer;
+transition: 0.2s ease;
+background-color: var(--clr-gold);
+}
+button.primary{
+    background:var(--clr-green);
+    color:var(--clr-wwhite);
+    border:none;
+}
+
+/* CONTACTS */
+.contacts { background: var(--clr-green); color: white;}
+.contacts .content { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 40px; 
+}
+.bottom-logo, .right-info { 
+    flex: 1; 
+    min-width: 280px; 
+    text-align: center; 
+}
+.bottom-logo img { width: 300px; margin-bottom: 15px; }
+.right-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    float: left;
+    h4{
+        color: var(--clr-gold);
+        margin-bottom: 25px;
+        margin-top: 15px;
+        text-transform: uppercase;
+        
+    }
+    ul{
+        list-style: none !important;
+        padding: 0;
+        margin: 0;
+    }
+    li{
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.9rem;
+    }
+    a{
+        text-decoration: none;
+        color: var(--clr-white);
+    }
+    a:hover{
+        color: var(--clr-gold);
+    }
+}
+.right-info li i{
+    color: var(--clr-gold);
+    font-size: 1.2rem;
+    width: 35px;  
+    text-align: center;            
+}
+/* FOOTER */
+.end { 
+    background: #272a16; 
+    color: var(--clr-white); 
+    font-size: 0.7rem; 
+    text-align: center; 
+}
+.hamburger {
+    display: none; /* Asztali nézetben rejtve */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    padding: 0;
+    width: 30px;
+    height: 24px;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: var(--clr-white, #ffffff);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+}
+
+.foglalas-container { 
+    display: flex; 
+    gap: 30px; 
+    flex-wrap: wrap; 
+}
+        
+        /* NAPTÁR STÍLUSOK */
+.calendars-wrapper { 
+    display: flex; 
+    gap: 5px; 
+    flex-wrap: wrap; 
+    margin-bottom: 15px;
+}
+.calendar-card {
+    width: 495px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 15px;
+}
+.header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 12px; 
+}
+.header h3 { 
+    margin: 0; 
+    font-size: 16px; 
+    color: var(--clr-green); 
+    text-transform: capitalize; 
+}
+.nav-btn {
+    background: none; 
+    border: none; 
+    font-size: 20px; 
+    cursor: pointer; 
+    color: var(--clr-green); 
+}
+.nav-btn:hover { 
+    color: #000; 
+}
+
+.grid { 
+    display: grid; 
+    grid-template-columns: repeat(7, 1fr); 
+    gap: 2px; background: var(--clr-lightgrey); 
+    border: 1px solid #e0e0e0; 
+}
+.day-name { 
+    background: var(--clr-lightergreen); 
+    text-align: center; 
+    padding: 6px 0; 
+    font-size: 15px; 
+    font-weight: bold; 
+    color: #444; 
+}
+        
+.day {
+    height: 38px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    cursor: pointer;
+    user-select: none;
+    color: #333;
+}
+
+.disabled { 
+    background: #f9f9f9 !important; 
+    color: #ccc !important; 
+    cursor: default; 
+}
+/* Kijelölt tartomány stílusai */
+.selected-full { 
+    background: var(--clr-lightgreen) !important; 
+    color: var(--clr-green); 
+    font-weight: bold; 
+}
+.selected-start { 
+    background: linear-gradient(135deg, #ffffff 50%, var(--clr-lightgreen) 50%) !important; 
+    color: var(--clr-green); 
+    font-weight: bold; 
+}
+.selected-end { 
+    background: linear-gradient(135deg, var(--clr-lightgreen) 50%, #ffffff 50%) !important; 
+    color: var(--clr-green); 
+    font-weight: bold; 
+}
+.input-group{
+    display:flex;
+    flex-direction:column;
+    margin-bottom: 10px;
+    flex:1;
+    font-family: var(--ff-playfair);
+    label{
+        font-size:15px;
+        color:var(--clr-grey-font);
+        font-weight:600;
+    }
+    input, select,textarea{
+        width:100%;
+        padding:15px;
+        border-radius:14px;
+        border:1px solid var(--clr-grey);
+        background:var(--clr-lightgrey);
+        font-size:15px;
+        transition:0.2s;
+        font-family: var(--ff-playfair);
+    }
+    input:focus, select:focus, textarea:focus{
+        outline:none;
+        border-color:var(--clr-green);
+    }
+}
+.row{
+    display:flex;
+    gap:20px;
+}
+/* FORM STÍLUSOK */
+
+.date-display { background: #e9ecef; font-weight: bold; color: #495057; }
+.btn-submit { background: #28a745; color: white; padding: 10px; border: none; width: 100%; font-size: 16px; cursor: pointer; border-radius: 4px; margin-top: 10px; }
+.btn-submit:hover { background: #218838; }
+
+/* Sikeres / Hibás mentés üzenetek */
+.alert { padding: 10px; margin-bottom: 15px; border-radius: 4px; font-weight: bold; }
+.alert-error { background-color: #f8d7da; color: #721c24; }
+.alert-success { background-color: #d4edda; color: #155724; }
+/* MOBIL SPECIFIKUS BEÁLLÍTÁSOK */
+@media (max-width: 768px) {
+    nav .content { 
+        flex-direction: column; 
+        gap: 15px; 
+    }
+.hamburger {
+        display: flex !important;
+        position: absolute !important;
+        top: 20px !important;
+        right: 20px !important;
+       
+    }
+    .menu { 
+        display: none; /* Alaphelyzetben mobilon rejtve */
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        position: absolute;
+        top: 160px; /* A logó magasságához igazítva */
+        left: 0;
+        width: 100%;
+        background: var(--clr-green);
+        text-align: center;
+        z-index: 999;
+    }
+    .menu.active {
+        display: flex;
+    }
+
+    /* Opcionális: Hamburger gomb animáció X alakhoz */
+    .hamburger.active span:nth-child(1) { 
+        transform: translateY(8px) rotate(45deg); 
+    }
+
+    .hamburger.active span:nth-child(2) { 
+        opacity: 0; 
+    }
+
+    .hamburger.active span:nth-child(3) { 
+        transform: translateY(-8px) rotate(-45deg); 
+    }
+    
+    .main {
+        min-height: 400px;
+        h2 {
+             font-size: 2rem; 
+            }
+        h3{
+            font-size: 1.5rem;
+        }    
+        p { 
+            font-size: 0.75rem; 
+        }
+        .content{
+            padding: 0px;
+        }
+    }
+    .photo {
+        display: flex;
+        /* Engedélyezzük, hogy a képek több sorba ugorjanak */
+        flex-wrap: wrap; 
+        /* Egyenletes elosztás */
+        justify-content: center; 
+        /* Távolság a képek között (opcionális) */
+        gap: 10px; 
+        padding: 10px;
+    }
+
+    .photo img {
+        /* A 100% / 2 az 50%, de a gap miatt picit kevesebb kell, 
+           hogy biztosan beférjenek egymás mellé */
+        width: calc(50% - 10px); 
+        height: auto; /* Megtartja az arányokat, nem torzítja el */
+        object-fit: cover; /* Ha nem négyzetesek az eredeti képek, levágja a széleit, hogy szépen mutassanak */
+    }
+    .room-card { 
+        width: 100%; /* Mobilon 1 kártya 1 sorban */
+    } 
+    .icons {
+        padding: 0 20px 0 20px;        
+        > div {
+            display: flex;
+            flex-direction: column;
+            width: 100%; 
+            gap: 15px;   
+            }
+        }
+    .reservation{
+        background-position: 50% 20%;
+        background-size: cover;
+        min-height: 300px;
+    } 
+    .contacts{
+        .content{
+            margin: 0px;
+            width: 100%;
+        }
+    }
+    .right-info{
+        background: #2f321d; 
+    }
+    .media-text{
+        float: none;
+        width: 100%;
+    }
+    .media-bg{
+        float: none;
+        width: 100%;
+    }
+    .photos {
+        display: flex;
+        /* Engedélyezzük, hogy a képek több sorba ugorjanak */
+        flex-wrap: wrap; 
+        /* Egyenletes elosztás */
+        justify-content: center; 
+        /* Távolság a képek között (opcionális) */
+        gap: 5px; 
+        padding: 10px;
+        column-count: 1;
+    }
+
+    .photos img {
+        /* A 100% / 2 az 50%, de a gap miatt picit kevesebb kell, 
+           hogy biztosan beférjenek egymás mellé */
+        width: calc(50% - 10px); 
+        height: auto; /* Megtartja az arányokat, nem torzítja el */
+        object-fit: cover; /* Ha nem négyzetesek az eredeti képek, levágja a széleit, hogy szépen mutassanak */
+    }
+    .calendar-card {
+        width: 100%;
+    }
+}

@@ -1,0 +1,195 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Általános Információk - Vidék Szíve Hotel{% endblock %}
+{% block content %}
+
+<div class="card">
+    <div class="dashboard-header">
+        
+        <div class="live-clock">
+            <span id="current-date-time">Betöltés...</span>
+        </div>
+
+        <div class="action-buttons-group">
+            <a href="{% url 'checkin_view' %}" class="room cleaning-needed" >🧳 Check-in</a>
+            <a href="#" class="room cleaning">🔄 Hosszabbítás</a>
+            <a href="{% url 'checkout_view' %}" class="room occupied">🔑 Check-out</a>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard">
+    <div class="dashboard-left">
+        <div class="card">
+            <div style="text-align: center;">
+                <h1>🔑 A mai napon távozó vendégek</h1>
+            </div>
+            {% if checkout_reservations %}
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid var(--clr-lightgrey);">
+                                <th style="padding: 12px 15px; width:150px;">Szobaszám</th>
+                                <th style="padding: 12px 15px;">Vendég neve</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for reservation in checkout_reservations %}
+                                <tr style="border-bottom: 1px solid var(--clr-lightgrey); transition: background 0.2s;">
+                                    <td style="padding: 15px;">
+                                        {{ reservation.room.room_number }}
+                                    </td>
+                                    <td style="padding: 15px;">
+                                        {{ reservation.guest.guest_name }} </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div style="text-align: center;">
+                    <p>✨ Ma nincs kijelentkező vendégünk.</p>
+                </div>
+            {% endif %}
+        </div>
+    
+    <div class="card">
+    <div style="text-align: center;">
+        <h1>🧳 A mai napon érkező vendégek</h1>
+    </div>
+    {% if arrivals %}
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr style="border-bottom: 2px solid var(--clr-lightgrey);">
+                        <th style="padding: 12px 15px; width:150px;">Szobaszám</th>
+                        <th style="padding: 12px 15px;">Vendég neve</th>
+                        <th style="padding: 12px 15px; width:150px;">Művelet</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reservation in arrivals %}
+                        <tr style="border-bottom: 1px solid var(--clr-lightgrey); transition: background 0.2s;">
+                            <td style="padding: 15px;">
+                                {% if reservation.room %}
+                                    {{ reservation.room.room_number }}
+                                {% else %}
+                                    <span style="color: var(--clr-warning, #e67e22);">Beosztásra vár</span>
+                                {% endif %}
+                            </td>
+                            <td style="padding: 15px;">
+                                {{ reservation.guest.guest_name }}
+                            </td>
+                            <td style="padding: 15px; text-align: right;">
+                                <a href="{% url 'checkin_view' %}?reservation_id={{ reservation.id }}">
+                                    <button class="primary">Check-in</button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div style="text-align: center;">
+            <p>✨ Ma nincs érkező vendégünk.</p>
+        </div>
+    {% endif %}
+</div>
+    </div>
+    <div class="dashboard-right">
+        <div class="card">
+            <div style="text-align: center;">
+                <h1>🛠️ Aktív karbantartási feladatok</h1>
+            </div>
+            {% if active_issues %}
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-family: var(--ff-playfair); text-align: left;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid var(--clr-lightgrey);">
+                                <th style="padding: 12px 15px; width:150px;">Szobaszám</th>
+                                <th style="padding: 12px 15px;">Hiba leírása</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for issue in active_issues %}
+                                <tr style="border-bottom: 1px solid var(--clr-lightgrey); transition: background 0.2s;">
+                                    <td style="padding: 15px;">
+                                        {{ issue.room.room_number }}.
+                                    </td>
+                                    <td style="padding: 15px;">
+                                        {{ issue.description }}
+                                        {% if issue.handyman_note %}
+                                            <br><small style="color: #6c757d; font-style: italic;">Megjegyzés: {{ issue.handyman_note }}</small>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div style="text-align: center;">
+                    <p>✨ Jelenleg nincs bejelentett műszaki probléma.</p>
+                </div>
+            {% endif %}
+        </div>
+        <div class="card">
+            <div style="text-align: center;">
+                <h1>⏰ Aktív ébresztési kérések</h1>
+            </div>
+            {% if wake_up_rooms %}
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-family: var(--ff-playfair); text-align: left;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--clr-lightgrey);">
+                            <th style="padding: 12px 15px;">Szobaszám</th>
+                            <th style="padding: 12px 15px;">Kért időpont</th>
+                            <th style="padding: 12px 15px;">Státusz</th>
+                            <th style="padding: 12px 15px; text-align: center;">Művelet</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in rooms %}
+                            {% if r.wake_up %}
+                                <tr style="border-bottom: 1px solid var(--clr-lightgrey);">
+                                    <td style="padding:15px;">{{ r.room_number }}.</td>
+                                    <td style="padding:15px;">{{ r.wake_up_time }}</td>
+
+                                    <td style="padding:15px;">
+                                        {% if r.wake_up_confirmed %}
+                                            <span>✔ Visszaigazolva</span>
+                                        {% else %}
+                                            <span>⏳ Függőben</span>
+                                        {% endif %}
+                                    </td>
+                                    <td style="padding:15px; text-align:center;">
+                                        {% if r.wake_up_confirmed %}
+                                            <form action="{% url 'complete_wake_up' r.room_number %}" method="POST">
+                                                {% csrf_token %}
+                                                <button type="submit" class="secundary">
+                                                    Elvégezve
+                                                </button>
+                                            </form>
+                                        {% else %}
+                                            <form action="{% url 'confirm_wake_up' r.room_number %}" method="POST">
+                                                {% csrf_token %}
+                                                <button type="submit" class="primary">Visszaigazolás</button>
+                                            </form>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div style="text-align: center;">
+                <p>✨ Nincs aktív ébresztési kérelem</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

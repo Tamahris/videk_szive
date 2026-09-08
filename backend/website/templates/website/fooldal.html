@@ -1,0 +1,105 @@
+{% extends 'website/index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="main">
+    <div class="content">
+        <h2>A feltöltődés otthona</h2>
+        <h3>a magyar vidék szívében</h3>
+        <p>Élvezze a nyugalmat, a természet közelségét és<br> a magyar vendégszeretet minden pillanatát.</p>
+    </div> 
+</div>
+<div class="content">
+        <h1>Miért válasszon minket?<img src="{% static 'website/images/newlavender.png' %}" class="decor" alt="Logo"></h1>
+        <div class="media-bg">
+            <img src="{% static 'website/images/fooldal/levendulamezo.png' %}" alt="Levendulamező">
+        </div>
+        <div class="media-text">
+            <h2>A te kikapcsolódásod a mi küldetésünk <img src="{% static 'website/images/newlavender.png' %}" class="decor" alt="Logo"></h2>
+            
+            <p>Nálunk a pihenés valódi élmény. Mindent úgy alakítottunk ki, hogy az első pillanattól kezdve magad mögött hagyhasd a hétköznapok rohanását, és átadhasd magad a zavartalan feltöltődésnek.</p>
+            <p>Prémium kényelem: Modern, otthonos szobáink és csendes környezetünk garantálják a tökéletes pihenést.</p>
+            <p>Személyes odafigyelés: Csapatunk minden pillanatban azon dolgozik, hogy különlegesnek érezd magad.</p>
+            <p>Garantált élmények: Kiváló szolgáltatásokkal és felejthetetlen programokkal várunk.</p>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+
+    <div class="icons bggreen">
+        <div class="content">
+            <div class="leaf"><img src="{% static 'website/images/fooldal/leaf.png' %}" alt="Természet"><h4>Természet</h4>Csendes természetközeli környezet</div>
+            <div class="flower"><img src="{% static 'website/images/fooldal/flower.png' %}" alt="Wellness"><h4>Wellness</h4>Wellnes részleg medencével és szaunával</div>
+            <div class="food"><img src="{% static 'website/images/fooldal/food.png' %}" alt="Gasztronómia"><h4>Gasztonómia</h4>Kiváló magyaros ízek helyi alapanyagokból</div>
+            <div class="bed"><img src="{% static 'website/images/fooldal/bed.png' %}" alt="Kényelem"><h4>Kényelem</h4>Igényes szobák és lakosztályok</div>
+            <div class="people"><img src="{% static 'website/images/fooldal/people.png' %}" alt="Közösség"><h4>Közösség</h4>Családbarát szolgáltatások</div>
+        </div>
+    </div>
+
+    <div class="content galery">
+        <h1>Galéria<img src="{% static 'website/images/newlavender.png' %}" class="decor" alt="dekoráció"></h1>
+        <div class="photo">
+            <img src="{% static 'website/images/fooldal/taj.png' %}" alt="Tájkép">
+            <img src="{% static 'website/images/fooldal/wellnes.png' %}" alt="Wellness">
+            <img src="{% static 'website/images/fooldal/restaurant.png' %}" alt="Étterem">
+            <img src="{% static 'website/images/fooldal/sauna.png' %}" alt="Szauna">
+            <img src="{% static 'website/images/fooldal/medence.png' %}" alt="Medence">
+            <img src="{% static 'website/images/fooldal/lunch.png' %}" alt="Ebéd">
+        </div>
+    </div>
+
+    <div class="bggreen">
+        <div class="content">
+            <div class="bggreen-title">
+                <h1>Szobáink<img src="{% static 'website/images/newlavender.png' %}" class="decor" alt="Logo"></h1>
+            </div>
+            <div class="room-grid">
+                <div class="room-card">
+                    <div class="pic"><img src="{% static 'website/images/fooldal/kompakt.png' %}" alt="Kompakt szoba"></div>
+                    <div class="info">
+                        <h3>KOMPAKT SZOBA</h3>
+                        <p>Kompakt kényelem és modern felszereltség a teljes nyugalomhoz.</p>
+                    </div>
+                    <div class="bottom">
+                        <div class="features">
+                            <p><i class="fas fa-user-friends"></i> 1 fő részére</p>
+                            <h4><a href="#">RÉSZLETEK</a></h4>
+                        </div>
+                        <div class="price-tag"><strong>19 900 Ft/éj</strong></div>
+                    </div>
+                </div>
+                
+                <div class="room-card">
+                    <div class="pic"><img src="{% static 'website/images/fooldal/superior.png' %}" alt="Superior szoba"></div>
+                    <div class="info">
+                        <h3>SUPERIOR SZOBA</h3>
+                        <p>Tágasabb szoba, erkéllyel és gyönyörű kilátással a természetre</p>
+                    </div>
+                    <div class="bottom">
+                        <div class="features">
+                            <p><i class="fas fa-user-friends"></i> 2+1 fő részére</p>
+                            <h4><a href="#">RÉSZLETEK</a></h4>
+                        </div>
+                        <div class="price-tag"><strong>49 900 Ft/éj</strong></div>
+                    </div>
+                </div>
+     
+                <div class="view-all-container">
+                    <a href="{% url 'szallas' %}" class="btn-view-all">ÖSSZES SZOBA MEGTEKINTÉSE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="reservation">
+        <div class="content">
+            <h2>Foglaljon közvetlenül és élvezze az előnyöket!</h2>
+            <img src="{% static 'website/images/newlavender.png' %}" class="decor" alt="ikon">
+            <ul>
+                <li><i class="fa-solid fa-seedling"></i>Legjobb ár garancia</li>
+                <li><i class="fa-solid fa-seedling"></i>Kedvezményes ajánlatok</li>
+                <li><i class="fa-solid fa-seedling"></i>Rugalmas lemondási feltételek</li>
+                <li><i class="fa-solid fa-seedling"></i>Közvetlen kapcsolat szállodánkkal</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

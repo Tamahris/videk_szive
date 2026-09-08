@@ -1,0 +1,91 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Általános Információk - Vidék Szíve Hotel{% endblock %}
+{% block content %}
+
+<div class="notation">
+    <div class="status-item">
+        <div class="dot booked"></div>
+        Takarítást nem kér
+    </div>
+    <div class="status-item">
+        <div class="dot pending"></div>
+        Takarítás szükséges
+    </div>
+    <div class="status-item">
+        <div class="dot in-progress"></div>
+        Takarítás alatt
+    </div>
+    <div class="status-item">
+        <div class="dot ready"></div>
+        Takarítva
+    </div>
+</div>
+
+<div class="card">
+    <div style="padding: 20px; text-align: center;">
+        <h1>🧴 Extra kérések</h1>
+    </div>
+    <div class="rooms-grid">
+        
+        {% for room in rooms %}
+            <div class="room 
+                {% if room.status_booked %}occupied
+                {% elif room.status_need_cleaning %}cleaning-needed
+                {% elif room.status_under_cleaning %}cleaning
+                {% elif room.status_cleaned %}done
+                {% elif room.status_free %}done
+                {% endif %}">
+                
+                <h3>{{ room.room_number }}</h3>
+                
+                <p>{{ room.room_type }}</p>
+
+                <hr>
+
+                <div>
+                    {% if room.cleaning or room.extra_sheets or room.extra_towel or room.extra_showers or room.bin_clean or room.wake_up or room.issues %}
+
+                        <div style=" width: 100%; text-align: center; font-size: 2rem"> 
+                            {% if room.extra_sheets %}🛏️{% endif %}
+                            {% if room.extra_towel %}🧖{% endif %}
+                            {% if room.extra_showers %}🧴{% endif %}
+                            {% if room.bin_clean %}🚮{% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div style="margin-top: 15px;">
+                    {% with task=room.cleanings.all|dictsortreversed:"created_at"|first %}
+                        
+                        {% if room.status_need_cleaning or room.status_under_cleaning or room.extra_sheets or room.extra_towel or room.extra_showers or room.bin_clean %}
+                            <form method="POST" action="{% url 'update_cleaning' room.room_number %}" style="margin-top:10px;">
+                                {% csrf_token %}
+
+                                {% if room.status_need_cleaning %}
+                                    <button class="primary">
+                                        🧹 Takarítás indítása
+                                    </button>
+                                {% elif room.status_under_cleaning %}
+                                    <button class="primary">
+                                        ✅ Takarítás kész
+                                    </button>
+                                {% else %}
+                                    <button class="primary">
+                                        ✅ Extra kérések teljesítve
+                                    </button>
+                                {% endif %}
+                            </form>
+                        {% endif %}
+
+                    {% endwith %}
+                </div>
+
+            </div>
+        {% empty %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 5px;">
+                <p>✨ Nincsenek szobák az adatbázisban.</p>
+            </div>
+        {% endfor %}
+</div>
+{% endblock %}

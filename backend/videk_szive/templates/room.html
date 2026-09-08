@@ -1,0 +1,142 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Üdvözöljük a {{ room.room_number }}. szobában!</h1>
+
+<div class="card">
+    <h2>Szoba információ</h2>
+    <div class="summary-section">
+        <div class="summary-row">
+            <span>Szobaszám:</span>
+            <strong>{{room.room_number}}</strong>
+        </div>
+          <div class="summary-row">
+            <span>Vendég neve:</span>
+            <strong>{% if guest %}{{ guest.guest_name }}{% else %}Nincs bejelentkezve{% endif %}</strong>
+        </div>
+          <div class="summary-row">
+            <span>Érkezés:</span>
+            <strong>{% if reservation %}{{ reservation.arrive_date }}{% else %}-{% endif %}</strong>
+        </div>
+          <div class="summary-row">
+            <span>Távozás:</span>
+            <strong>{% if reservation %}{{ reservation.leave_date }}{% else %}-{% endif %}</strong>
+        </div>
+          <div class="summary-row">
+            <span>Wifi Jelszó:</span>
+            <strong>{{room.wifi}}</strong>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Szolgáltatások</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="rooms-grid">
+            <div class="room done">
+                <h3>🧹</h3>
+                <p>Takarítás kérése</p>
+                <div class="checkbox-wrapper-7">
+                    <input class="tgl tgl-ios" id="cb-cleaning" name="cleaning" type="checkbox" {% if room.cleaning %}checked{% endif %}>
+                    <label class="tgl-btn" for="cb-cleaning"></label>
+                </div>
+            </div>
+
+            <div class="room cleaning">
+                <h3>🛏️</h3>
+                <p>Extra ágynemű kérése</p>
+                <div class="checkbox-wrapper-7">
+                    <input class="tgl tgl-ios" id="cb-sheets" name="extra_sheets" type="checkbox" {% if room.extra_sheets %}checked{% endif %}>
+                    <label class="tgl-btn" for="cb-sheets"></label>
+                </div>
+            </div>
+
+            <div class="room cleaning">
+                <h3>🧖</h3>
+                <p>Extra törölköző kérése</p>
+                <div class="checkbox-wrapper-7">
+                    <input class="tgl tgl-ios" id="cb-towel" name="extra_towel" type="checkbox"{% if room.extra_towel %}checked{% endif %}>
+                    <label class="tgl-btn" for="cb-towel"></label>
+                </div>
+            </div>
+
+            <div class="room cleaning">
+                <h3>🧴</h3>
+                <p>Fürdőszobai utántöltés</p>
+                <div class="checkbox-wrapper-7">
+                    <input class="tgl tgl-ios" id="cb-showers" name="extra_showers" type="checkbox" {% if room.extra_showers %}checked{% endif %}>
+                    <label class="tgl-btn" for="cb-showers"></label>
+                </div>
+            </div>
+
+            <div class="room cleaning">
+                <h3>🚮</h3>
+                <p>Szemét kiürítése</p>
+                <div class="checkbox-wrapper-7">
+                    <input class="tgl tgl-ios" id="cb-bin"name="bin_clean"type="checkbox" {% if room.bin_clean %}checked{% endif %}>
+                    <label class="tgl-btn" for="cb-bin"></label>
+                </div>
+            </div>
+
+            <div class="room cleaning">
+                <h3>🔔</h3>
+                <p>Ébresztés kérése</p>
+                <textarea name="wake_up"placeholder="Írja le hány órára szeretné!"rows="3" class="input-group"></textarea>
+            </div>
+
+            <div class="room occupied">
+                <h3>🚨</h3>
+                <p>Hibajelentés</p>
+                <textarea name="new_issue"placeholder="Írja le a problémát"rows="3"></textarea>
+            </div>
+        </div>
+        <button class="primary" type="submit" name="action" value="save_services">Mentés</button>
+    </form>
+</div>
+
+<div class="card">
+    <div style="text-align: center;">
+        <h1>🚨 Bejelentett hibák</h1>
+    </div>
+    {% if active_issues %}
+        {% for issue in active_issues %}
+            <div class="guest-issue-card"
+                 style="border-left:4px solid #dc3545; padding:10px; background:#fff; margin-bottom:10px;">
+                <p>
+                    <strong>Bejelentett hiba:</strong> {{ issue.description }}
+                </p>
+                {% if issue.handyman_note %}
+                    <div style="background-color:#e2f0d9; border:1px solid #b5e2a3; color:#385723; padding:8px; border-radius:5px; margin-top:5px; font-size:0.9rem;">
+                        🛠️ <strong>Karbantartó üzenete:</strong>{{ issue.handyman_note }}
+                    </div>
+                {% else %}
+                    <div style="color:#6c757d;font-size:0.85rem;margin-top:5px;">
+                        ⏳ Igényét továbbítottuk a műszaki részlegnek. Kollégánk rövidesen megkezdi a hiba elhárítását.
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div>
+            ✨<strong> Jelenleg nincs aktív vagy intézkedésre váró karbantartási igénye.</strong>Szobájában minden berendezés zavartalanul üzemel.
+        </div>
+    {% endif %}
+</div>
+
+<div class="card">
+    <div style="text-align: center;">
+        <h1>🔔 Ébresztések</h1>
+    </div>
+    {% if room.wake_up %}
+        {% if room.wake_up_confirmed %}
+            <div>✅ Ébresztési kérését kollégáink visszaigazolták.</div>
+        {% else %}
+            <div>⏳ Ébresztési igénye rögzítésre került. Kollégáink hamarosan visszaigazolják.</div>
+        {% endif %}
+    {% else %}
+        <div> ✨ Jelenleg nem kért ébresztést.</div>
+    {% endif %}
+</div>
+{% endblock %}

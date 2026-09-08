@@ -1,0 +1,131 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<div class="main">
+    <h1>Online foglalások</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="card" style="background: var(--clr-lightergreen); border-color: var(--clr-lightgreen); padding: 15px; margin-bottom: 20px;">
+                <strong style="color: var(--clr-green);">{{ message }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="dashboard">
+        <div class="dashboard-left">
+            <div class="card">
+                <h2>Beérkezett foglalási igények</h2>
+                <hr>
+                
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    {% for res in pending_reservations %}
+                        <a href="?selected={{ res.id }}" class="select-room {% if selected_reservation and selected_reservation.id == res.id %}active-booking{% endif %}" style="text-decoration: none; color: inherit; {% if selected_reservation and selected_reservation.id == res.id %} border-color: var(--clr-green); background-color: rgba(54, 57, 34, 0.05);{% endif %}">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <h3>{{ res.guest.guest_name }}</h3>
+                                    <p>
+                                        Beküldve: {{ res.id }} 
+                                    </p>
+                                </div>
+                                <span class="payment-status">Új igény</span>
+                            </div>
+                        </a>
+                    {% empty %}
+                        <p>Nincs feldolgozásra váró online foglalás.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-right">
+            {% if selected_reservation %}
+                <div class="card">
+                    <div class="summary-header">
+                        <h2>{{ selected_reservation.guest.guest_name }} adatai</h2>
+                        <span class="summary-badge">Feldolgozandó</span>
+                    </div>
+
+                    <div class="summary-grid">
+                        <div class="summary-row">
+                            <span>E-mail cím:</span>
+                            <strong>{{ selected_reservation.guest.email }}</strong>
+                        </div>
+                        <div class="summary-row">
+                            <span>Telefonszám:</span>
+                            <strong>{{ selected_reservation.guest.phone_number }}</strong>
+                        </div>
+                        <div class="summary-row">
+                            <span>Érkezés - Távozás:</span>
+                            <strong>{{ selected_reservation.arrive_date|date:"Y.m.d" }} - {{ selected_reservation.leave_date|date:"Y.m.d" }}</strong>
+                        </div>
+                        <div class="summary-row">
+                            <span>Vendégek száma:</span>
+                            <strong>{{ selected_reservation.adult_number }} felnőtt{% if selected_reservation.kid_number %}, {{ selected_reservation.kid_number }} gyermek{% endif %}</strong>
+                        </div>
+                    </div>
+
+                    {% if selected_reservation.comment %}
+                        <div class="summary-row" style="margin-top: 15px;">
+                            <span>Megjegyzés:</span>
+                            <strong>{{ selected_reservation.comment }}</strong>
+                        </div>
+                    {% endif %}
+
+                    <div class="summary-section">
+                        <h3>Műveletek a foglalással</h3>
+                        
+                        <form method="POST" action="" style="margin-top: 15px;">
+                            {% csrf_token %}
+                            <input type="hidden" name="reservation_id" value="{{ selected_reservation.id }}">
+
+                            <div class="input-group" style="margin-bottom: 20px;">
+                                <label for="room_id">Válasszon szabad szobát:</label>
+                               <select name="room_id" id="room_id" required>
+                                    {% if all_rooms %}
+                                        <option value="">-- Válasszon szabad szobát --</option>
+                                        {% for room in all_rooms %}
+                                            <option value="{{ room.room_number }}">
+                                                {{ room.room_number }}. szoba ({{ room.room_type }})
+                                            </option>
+                                        {% endfor %}
+                                    {% else %}
+                                        <option value="">
+                                            {% if selected_reservation.room_type %}
+                                                Nincs szabad "{{ selected_reservation.room_type }}" szoba ebben az időpontban!
+                                            {% else %}
+                                                Nincs megadva szobatípus ehhez a foglaláshoz!
+                                            {% endif %}
+                                        </option>
+                                    {% endif %}
+                                </select>
+                            </div>
+
+                            <div class="action-buttons-group" style="display: flex; gap: 15px;">
+                                
+                                <button type="submit" name="action" value="accept" class="primary" style="flex: 2;" {% if not all_rooms %}disabled style="opacity: 0.5; cursor: not-allowed;"{% endif %}>
+                                    Foglalás elfogadása
+                                </button>
+
+                                <button type="submit" name="action" value="reject" class="checkout" style="flex: 1;" onclick="return confirm('Biztosan elutasítja a foglalást? A kérelem törlődik.');" formnovalidate>
+                                    Foglalás elutasítása
+                                </button>
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            {% else %}
+                <div class="card">
+                    <p>
+                        Kattintson egy vendégre a bal oldali listában a részletek megtekintéséhez!
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'website/index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="main kapcsolat">
+    <div class="content">
+        <h2>Kapcsolat</h2>
+        <h3>a Vidék Szíve Hotel csapatával</h3>
+        <p>Kérdése van foglalással, wellness szolgáltatásokkal vagy rendezvényekkel kapcsolatban? Örömmel segítünk Önnek személyesen, telefonon vagy e-mailben.</p>
+    </div> 
+</div>
+
+<div class="icons bggreen">
+    <div class="content">
+        <div class="leaf"><img src="{% static 'website/images/kapcsolat/hely.png' %}" alt="Cím"><h4>Cím</h4>Könnyen ide lehet találni</div>
+        <div class="flower"><img src="{% static 'website/images/kapcsolat/telefon.png' %}" alt="Telefon"><h4>Telefon</h4>Hívjon minket bizalommal</div>
+        <div class="food"><img src="{% static 'website/images/kapcsolat/email.png' %}" alt="E-mail"><h4>E-mail</h4>Keressen fel minket, írjon bátran</div>
+        <div class="bed"><img src="{% static 'website/images/kapcsolat/ido.png' %}" alt="Recepció"><h4>Recepció</h4>Éjjel-nappali elérhetőség</div>
+        <div class="people"><img src="{% static 'website/images/kapcsolat/kocsi.png' %}" alt="Parkolás"><h4>Parkolás</h4>Biztosítjuk önnek az ingyenes parkolást</div>
+    </div>
+</div>
+
+<div class="content">
+    <h1>Küldjön üzenetet<img src="{% static 'website/images/newlavender.png' %}" class="decor" alt="Logo"></h1>
+        <div class="media-bg">
+            <img src="{% static 'website/images/kapcsolat/map.png' %}" alt="Térkép">
+        </div>
+        <div class="media-text">   
+            <form method="POST" action="">
+                {% csrf_token %}
+                <label for="name">Név</label>
+                <input type="text" id="name" name="name" required><br>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required><br>
+
+                <label for="telefon">Telefon</label>
+                <input type="tel" id="telefon" name="telefon"><br>
+
+                <label for="uzenet">Üzenet</label>
+                <textarea id="uzenet" name="uzenet" maxlength="500" placeholder="Írd ide az üzeneted..." required></textarea> <br>
+
+                <button type="submit">Küldés</button>
+            </form>  
+        </div>
+        <div style="clear:both"></div>
+</div>
+
+<div class="reservation">
+    <div class="content">
+        <h2>Könnyen megközelíthető</h2>
+        <img src="{% static 'website/images/newlavender.png' %}" class="decor" alt="ikon">
+        <p>A hotel csendes, természetközeli környezetben található, mégis könnyen elérhető autóval és tömegközlekedéssel is.</p>
+        <ul>
+            <li><i class="fa-solid fa-seedling"></i>15 perc a városközponttól</li>
+            <li><i class="fa-solid fa-seedling"></i>ingyenes parkoló</li>
+            <li><i class="fa-solid fa-seedling"></i>Elektromos töltőállomás</li>
+            <li><i class="fa-solid fa-seedling"></i>Taxi rendelés recepcioról</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

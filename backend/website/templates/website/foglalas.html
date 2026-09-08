@@ -1,0 +1,105 @@
+{% extends 'website/index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="title reserv">
+    <div class="content">
+        <h1>Foglalás</h1>
+        <img src="{% static 'website/images/newlavender.png' %}" alt="ikon">
+        <p>A pihentető élmények csak egy kattintásra vannak.</p>
+   </div>
+</div>
+<div class="content">
+    <div class="calendar">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="foglalas-container">
+        <div>
+            <div class="calendars-wrapper">
+                <div class="calendar-card">
+                    <div class="header">
+                        <button type="button" class="nav-btn" onclick="changeMonth(-1)">&lt;</button>
+                        <h3 id="monthTitle1"></h3>
+                        
+                    </div>
+                    <div class="grid" id="calendarGrid1"></div>
+                </div>
+
+                <div class="calendar-card">
+                    <div class="header">
+                        
+                        <h3 id="monthTitle2"></h3>
+                        <button type="button" class="nav-btn" onclick="changeMonth(1)">&gt;</button>
+                    </div>
+                    <div class="grid" id="calendarGrid2"></div>
+                </div>
+            </div>
+        </div>
+           
+
+    </div>
+     <form method="POST" action="{% url 'foglalas' %}">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="input-group">
+                        <label>Érkezés napja:</label>
+                        <input type="text" id="check_in_display" class="date-display" readonly placeholder="Kattintson a naptárban">
+                        <input type="hidden" id="check_in" name="check_in" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Távozás napja:</label>
+                        <input type="text" id="check_out_display" class="date-display" readonly placeholder="Kattintson a naptárban">
+                        <input type="hidden" id="check_out" name="check_out" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="room_type">Szobatípus:</label>
+                    <select name="room_type" id="room_type" required>
+                        <option value="">-- Válasszon szobatípust --</option>
+                        {% for type in room_types %}
+                            <option value="{{ type }}">{{ type }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="name">Teljes Név:</label>
+                    <input type="text" name="name" required>
+                </div>
+
+                <div class="row">
+                    <div class="input-group">
+                        <label for="email">E-mail cím:</label>
+                        <input type="email" name="email" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="phone">Telefonszám:</label>
+                        <input type="tel" name="phone" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-group">
+                        <label for="adults">Felnőttek száma:</label>
+                        <input type="number" name="adults" value="1" min="1" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="kids">Gyermekek száma:</label>
+                        <input type="number" name="kids" value="0" min="0">
+                    </div>
+                </div>
+                <button type="submit" class="primary">Küldés</button>
+            </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Felhasználónév">
+    <input type="password" name="password" placeholder="Jelszó">
+    <button type="submit">Bejelentkezés</button>
+</form>
+
+{% for message in messages %}
+    <p style="color:red;">{{ message }}</p>
+{% endfor %}

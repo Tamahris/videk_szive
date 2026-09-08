@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'room/style.css' %}" >
+
+    <title>{% block title %}Szálloda Rendszer{% endblock %}</title>
+</head>
+<body>
+     <div class="layout">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="{% static 'images/header_logo_white.png' %}" alt="Vidék Szíve Hotel">
+            </div>
+            <div class="login-box">
+                {% if not user.is_authenticated %}
+                <form method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <h3>Bejelentkezés</h3>
+                    <input type="text" name="username" placeholder="Felhasználónév">
+                    <input type="password" name="password" placeholder="Jelszó">
+                    <button type="submit">Bejelentkezés</button>
+                </form>
+                {% if messages %}
+                    {% for message in messages %}
+                        <p style="color:red;">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+           {% else %}
+                    <div style="width:100%; text-align: center;">
+                        <h3>Bejelentkezve:</h3>
+                        <strong>
+                            {% if user.username == 'recepcio' %}
+                                Recepció
+                            {% elif user.username == 'takarito' %}
+                                Takarító személyzet
+                            {% elif user.username == 'karbantarto' %}
+                                Karbantartó személyzet
+                            {% else %}
+                                {{ user.username }}. szoba
+                            {% endif %}
+                        </strong>
+                    </div>
+                {% endif %}
+            </div>
+            
+            {% if user.is_authenticated %}
+                <nav>
+                    {% if user.username == 'recepcio' %}
+                        <a href="{% url 'reception' %}" class="{% if request.resolver_match.url_name == 'reception' %}active{% endif %}">Kezdőlap</a>
+                        <a href="{% url 'all_rooms' %}" class="{% if request.resolver_match.url_name == 'all_rooms' %}active{% endif %}">Összes szoba</a>
+                        <a href="{% url 'cleaning_history' %}" class="{% if request.resolver_match.url_name == 'cleaning_history' %}active{% endif %}">Takarítások listásása</a>
+                        <a href="{% url 'issue_history' %}" class="{% if request.resolver_match.url_name == 'issue_history' %}active{% endif %}">Karbantartások listásása</a>
+                        <a href="{% url 'online_foglalasok' %}" class="{% if request.resolver_match.url_name == 'online_foglalasok' %}active{% endif %}">Online foglalások</a>
+                    {% elif user.username == 'takarito' %}
+                        <a href="{% url 'summary' %}" class="{% if request.resolver_match.url_name == 'summary' %}active{% endif %}">Takarítási összesítő</a>
+                        <a href="{% url 'need_clean' %}" class="{% if request.resolver_match.url_name == 'need_clean' %}active{% endif %}">Takarítandó szobák</a>
+                        <a href="{% url 'progress' %}" class="{% if request.resolver_match.url_name == 'progress' %}active{% endif %}">Takarítás alatt alló szobák</a>
+                        <a href="{% url 'extras' %}" class="{% if request.resolver_match.url_name == 'extras' %}active{% endif %}">Extra kívánságok</a>
+                        <a href="{% url 'cleaner_dashboard' %}" class="{% if request.resolver_match.url_name == 'cleaner_dashboard' %}active{% endif %}">Összes szoba megjelenítése</a>
+                    {% elif user.username == 'karbantarto' %}
+                        <a href="{% url 'handyman_dashboard' %}" class="{% if request.resolver_match.url_name == 'handyman_dashboard' %}active{% endif %}">🛠️ Karbantartói feladatok</a>
+                    {% else %}
+                        <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Áttekintés</a>
+                        <a href="{% url 'room_info' %}" class="{% if request.resolver_match.url_name == 'room_info' %}active{% endif %}">Általános Információk</a>
+                    {% endif %}
+                </nav>
+
+                    <div class="logout">
+                        <a href="{% url 'logout' %}">
+                            <img src="{% static 'images/logout.png' %}" alt="">
+                            <span>Kijelentkezés</span>
+                        </a>
+                    </div>
+            {% endif %}
+        </aside>
+        <main class="main">
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
+    <script src="{% static 'js/version-check.js' %}"></script>
+    <script src="{% static 'js/clock.js' %}"></script>
+    <script src="{% static 'js/windows.js' %}"></script>
+    <script src="{% static 'js/checkout.js' %}"></script>
+</body>
+</html>
